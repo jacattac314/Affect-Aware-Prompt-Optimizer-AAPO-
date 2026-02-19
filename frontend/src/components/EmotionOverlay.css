@@ -1,0 +1,37 @@
+.emotion-overlay {
+  background: #16213e;
+  border: 1px solid #2a2a4a;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.emotion-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-left: 3px solid;
+  padding-left: 0.75rem;
+}
+
+.emotion-emoji { font-size: 2rem; line-height: 1; }
+
+.emotion-labels { display: flex; flex-direction: column; gap: 0.1rem; }
+
+.emotion-label { font-size: 1.1rem; font-weight: 700; }
+
+.posture-label { font-size: 0.8rem; color: #8888aa; text-transform: capitalize; }
+
+.intent-chip {
+  display: inline-flex;
+  background: #2a2a4a;
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  width: fit-content;
+}
+
+.intent-label { font-size: 0.78rem; color: #a78bfa; font-weight: 600; letter-spacing: 0.02em; }
+
+.tone-suggestion { font-size: 0.82rem; color: #aaaacc; font-style: italic; }

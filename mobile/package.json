@@ -1,0 +1,27 @@
+{
+  "name": "aapo-mobile",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "test": "jest --watchAll=false"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "expo-camera": "~14.0.0",
+    "expo-status-bar": "~1.11.1",
+    "react": "18.2.0",
+    "react-native": "0.73.2",
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "jest": "^29.7.0",
+    "jest-expo": "~50.0.0"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "affect-aware-prompt-optimizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-platform emotion-aware prompt rewriting application",
+  "scripts": {
+    "test:backend": "npm test --workspace=backend",
+    "test:frontend": "npm test --workspace=frontend",
+    "test": "npm run test:backend && npm run test:frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run start --workspace=frontend"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
