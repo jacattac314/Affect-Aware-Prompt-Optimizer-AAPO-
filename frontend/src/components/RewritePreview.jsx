@@ -28,7 +28,7 @@ export default function RewritePreview({ rewrittenPrompt, isLoading }) {
   }, [setRewrittenPrompt]);
 
   return (
-    <div className="rewrite-preview" aria-live="polite" aria-label="Rewritten prompt">
+    <section className="rewrite-preview" aria-live="polite" aria-label="Rewritten prompt">
       <div className="rewrite-header">
         <span className="rewrite-badge">Rewritten prompt</span>
       </div>
@@ -56,6 +56,6 @@ export default function RewritePreview({ rewrittenPrompt, isLoading }) {
           </button>
         </div>
       )}
-    </div>
+    </section>
   );
 }

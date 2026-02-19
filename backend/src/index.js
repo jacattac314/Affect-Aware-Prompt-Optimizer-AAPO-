@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const { randomUUID } = require('crypto');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -12,6 +13,16 @@ const rewriteRouter = require('./routes/rewrite');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// ── Request-ID tracing ───────────────────────────────────────────────────────
+// Attach a unique UUID to every request so logs and client errors can be
+// correlated across the backend and frontend.
+app.use((req, res, next) => {
+  const id = req.headers['x-request-id'] || randomUUID();
+  req.requestId = id;
+  res.setHeader('X-Request-Id', id);
+  next();
+});
 
 // ── Security middleware ──────────────────────────────────────────────────────
 app.use(helmet());
@@ -31,7 +42,8 @@ app.use(
       }
     },
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+    exposedHeaders: ['X-Request-Id'],
   })
 );
 
@@ -55,9 +67,12 @@ app.use('/rewrite', rewriteRouter);
 
 // ── Global error handler ─────────────────────────────────────────────────────
 // eslint-disable-next-line no-unused-vars
-app.use((err, _req, res, _next) => {
-  console.error('[error]', err.message);
-  res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
+app.use((err, req, res, _next) => {
+  const requestId = req.requestId;
+  console.error('[error]', err.message, { requestId });
+  res
+    .status(err.status || 500)
+    .json({ error: err.message || 'Internal server error', requestId });
 });
 
 // ── Start ────────────────────────────────────────────────────────────────────

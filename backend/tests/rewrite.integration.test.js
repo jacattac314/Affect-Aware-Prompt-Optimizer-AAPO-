@@ -127,3 +127,26 @@ describe('GET /health', () => {
     expect(res.body.status).toBe('ok');
   });
 });
+
+describe('X-Request-Id tracing', () => {
+  test('every response includes an X-Request-Id header', async () => {
+    const res = await request(app).get('/health');
+    expect(res.headers['x-request-id']).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    );
+  });
+
+  test('echoes back a client-supplied X-Request-Id', async () => {
+    const clientId = '11111111-2222-4333-a444-555555555555';
+    const res = await request(app)
+      .get('/health')
+      .set('X-Request-Id', clientId);
+    expect(res.headers['x-request-id']).toBe(clientId);
+  });
+
+  test('error responses include requestId in the JSON body', async () => {
+    const res = await request(app).post('/rewrite').send({});
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty('requestId');
+  });
+});
